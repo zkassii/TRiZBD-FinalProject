@@ -1,0 +1,58 @@
+﻿<Window x:Class="ShoeStoreWpf.EditProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактирование товара" Height="700" Width="500"
+        Background="White" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Image Source="/Images/Icon.png" Height="40" HorizontalAlignment="Left"/>
+        
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock Text="Артикул:" FontFamily="Times New Roman"/>
+            <TextBox x:Name="ArticleTextBox"/>
+            
+            <TextBlock Text="Название:" FontFamily="Times New Roman"/>
+            <ComboBox x:Name="CategoryComboBox"/>
+            
+            <TextBlock Text="Ед. изм.:" FontFamily="Times New Roman"/>
+            <TextBox x:Name="UnitTextBox" Text="шт."/>
+            
+            <TextBlock Text="Цена:" FontFamily="Times New Roman"/>
+            <TextBox x:Name="PriceTextBox"/>
+            
+            <TextBlock Text="Поставщик:" FontFamily="Times New Roman"/>
+            <ComboBox x:Name="SupplierComboBox"/>
+            
+            <TextBlock Text="Производитель:" FontFamily="Times New Roman"/>
+            <ComboBox x:Name="ManufacturerComboBox"/>
+            
+            <TextBlock Text="Скидка (%):" FontFamily="Times New Roman"/>
+            <TextBox x:Name="DiscountTextBox"/>
+            
+            <TextBlock Text="Кол-во:" FontFamily="Times New Roman"/>
+            <TextBox x:Name="QuantityTextBox"/>
+            
+            <TextBlock Text="Пол:" FontFamily="Times New Roman"/>
+            <TextBox x:Name="GenderTextBox"/>
+            
+            <TextBlock Text="Описание:" FontFamily="Times New Roman"/>
+            <TextBox x:Name="DescriptionTextBox" AcceptsReturn="True"/>
+            
+            <TextBlock Text="Цвет:" FontFamily="Times New Roman"/>
+            <TextBox x:Name="ColorTextBox"/>
+            
+            <TextBlock Text="Размер:" FontFamily="Times New Roman"/>
+            <TextBox x:Name="SizeTextBox"/>
+            
+            <TextBlock Text="Изображение:" FontFamily="Times New Roman"/>
+            <Button Content="Загрузить" Click="UploadImageButton_Click" Background="#00FA9A"/>
+            <TextBlock x:Name="ImagePathTextBlock"/>
+        </StackPanel>
+        <Button Content="Сохранить" Click="SaveButton_Click" Background="#00FA9A" Grid.Row="2" HorizontalAlignment="Center" Margin="10"/>
+    </Grid>
+</Window>

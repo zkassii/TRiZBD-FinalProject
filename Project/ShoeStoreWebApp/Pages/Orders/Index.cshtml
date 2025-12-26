@@ -1,0 +1,58 @@
+﻿@page
+@model ShoeStoreWebApp.Pages.Orders.IndexModel
+@{
+    ViewData["Title"] = "Заказы";
+}
+
+<h1>Заказы</h1>
+
+@if (!Model.Orders.Any())
+{
+    <p>Заказов пока нет.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Дата</th>
+                <th>Статус</th>
+                <th>Сумма</th>
+                <th>Товары</th>
+                @if (User.IsInRole("Администратор") || User.IsInRole("Менеджер"))
+                {
+                    <th>Клиент</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>@(order.IsFinished ? "Завершен" : "Новый")</td>
+                    <td>
+                        @{
+                            var total = order.OrderProducts.Sum(op => op.Quantity * op.Product.Price);
+                        }
+                        @total ₽
+                    </td>
+                    <td>
+                        <ul class="mb-0">
+                            @foreach (var item in order.OrderProducts)
+                            {
+                                <li>@item.Quantity × @item.Product.Article (@item.Product.Price ₽)</li>
+                            }
+                        </ul>
+                    </td>
+                    @if (User.IsInRole("Администратор") || User.IsInRole("Менеджер"))
+                    {
+                        <td>@order.User.FirstName @order.User.SecondName</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

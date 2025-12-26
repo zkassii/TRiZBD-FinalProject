@@ -1,0 +1,61 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ShoeStoreLibrary.Contexts;
+using ShoeStoreLibrary.DTOs;
+using ShoeStoreLibrary.Extensions;
+
+namespace ShoeStoreApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OrdersController(ShoeStoreDbContext context) : ControllerBase
+    {
+        private readonly ShoeStoreDbContext _context = context;
+        private DateTime todayDate = DateTime.Now;
+
+        // GET: api/orders/user/{login}
+        [HttpGet("user/{login}")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersByUserLogin(string login)
+        {
+            var orders = await _context.Orders
+                .Include(o => o.User)
+                .Where(o => o.User.Login == login)
+                .ToListAsync();
+
+            return orders is null ? NotFound() : Ok(orders.ToDtos());
+        }
+
+        // PUT: api/orders/{id}/status
+        [HttpPut("{id}/status")]
+        [Authorize(Roles = "Администратор, Менеджер")]
+        public async Task<ActionResult<OrderDto>> UpdateOrderStatus(int id, [FromQuery] DateTime? deliveryDate = null, [FromQuery] bool isFinished = false)
+        {
+            var order = await _context.Orders.FindAsync(id);
+
+            if (order is null)
+                return NotFound();
+
+            if (deliveryDate is null)
+                order.DeliveryDate = todayDate;
+            else
+                order.DeliveryDate = (DateTime)deliveryDate;
+
+            order.IsFinished = isFinished;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest();
+            }
+
+            return order.ToDto();
+        }
+
+
+    }
+}

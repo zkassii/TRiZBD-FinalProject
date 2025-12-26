@@ -1,0 +1,17 @@
+﻿@page
+@model ShoeStoreWebApp.Pages.LogoutModel
+@{
+    ViewData["Title"] = "Выход";
+}
+
+<div class="text-center mt-5">
+    <h2>Вы вышли из системы</h2>
+</div>
+
+@section Scripts {
+    <script>
+        setTimeout(() => {
+            window.location.href = "/Products/Index";
+        }, 1500);
+    </script>
+}

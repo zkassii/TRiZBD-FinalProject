@@ -1,0 +1,58 @@
+/* Шрифт из руководства для всего тела */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #FFFFFF; /* Основной фон - белый */
+}
+
+/* Дополнительный фон (используй класс .bg-secondary) */
+.bg-secondary {
+    background-color: #7FFF00;
+}
+
+/* Акцент для кнопок (btn-primary) */
+.btn-primary {
+    background-color: #00FA9A;
+    border-color: #00FA9A;
+}
+
+/* Фон для скидки >15% (класс discount-high) */
+.discount-high {
+    background-color: #2E8B57 !important;
+}
+
+/* Карточки товаров (для задания 4) */
+.product-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+    width: 300px;
+}
+
+    .product-card img {
+        max-width: 100%; /* Не искажать пропорции изображений */
+    }
+
+/* Зачёркнутая цена (класс strike) */
+.strike {
+    text-decoration: line-through;
+}
+
+.card.discount-high {
+    background-color: #2E8B57 !important;
+    color: white !important;
+}
+
+    .card.discount-high .card-title,
+    .card.discount-high .card-text,
+    .card.discount-high strong,
+    .card.discount-high .strike,
+    .card.discount-high .text-success,
+    .card.discount-high .badge {
+        color: white !important;
+    }
+
+    .card.discount-high .btn-primary {
+        background-color: #00FA9A;
+        border-color: #00FA9A;
+    }
